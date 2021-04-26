@@ -55,8 +55,10 @@ w_assert_root
 w_install_package "apache2"
 
 # droit r/w du dossier WWW
-echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Réglage des droit du répertoir WWW d'apach2"
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Configuration des droits du répertoir /var/www/html d'apach2"
+sudo usermod -a -G www-data $SUDO_USER
 chown -R www-data:www-data "/var/www/html"
+chown -R $SUDO_USER:$SUDO_USER "/var/www/html"
 
 #génération de la page index.html
 echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Génération de page index /var/www/html/index.html"
