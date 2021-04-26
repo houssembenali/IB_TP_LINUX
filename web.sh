@@ -20,7 +20,7 @@ NC='\033[0m' 		# No Color
 w_assert_root() {
 	REAL_ID="$(id -u)"
 		if [ "$REAL_ID" -ne 0 ]; then 
-			1>&2 echo "${RED}$(date +'%Y-%m-%d %H:%M:%S') [ERROR  ] : This script must be run as root" 
+			1>&2 echo "${RED}$(date +'%Y-%m-%d %H:%M:%S') [ ERROR ] : This script must be run as root" 
 			exit 1
 	fi
 }
@@ -29,12 +29,15 @@ w_assert_root() {
 w_install_package() {
 	PACKAGE_NAME="$1"
 	if ! dpkg -l |grep --quiet "^ii.*$PACKAGE_NAME " ; then 
-		echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [INFO   ] : Installation du Package $PACKAGE_NAME"
+		echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Installation du Package $PACKAGE_NAME"
 		apt-get install -y "$PACKAGE_NAME"
 	else 
 		echo "${YELLOW}$(date +'%Y-%m-%d %H:%M:%S') [WARNING] : Le Package $PACKAGE_NAME est déja installer"
 	fi
 }
+
+
+
 
 
 # afficher le numero de ligne pour faciliter le debugage
@@ -46,6 +49,7 @@ echo_line_no () {
 ######## Main
 w_assert_root
 w_install_package "apache2"
-
-
+# droit r/w du dossier WWW
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Réglage des droit du répertoir WWW d'apach2"
+chown -R www-data:www-data "/var/www/html"
 
