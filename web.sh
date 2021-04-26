@@ -53,9 +53,19 @@ echo_line_no () {
 ######## Main
 w_assert_root
 w_install_package "apache2"
+
 # droit r/w du dossier WWW
 echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Réglage des droit du répertoir WWW d'apach2"
 chown -R www-data:www-data "/var/www/html"
+
 #génération de la page index.html
 echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Génération de page index /var/www/html/index.html"
 echo $HTML_INDEX_CONTENT > /var/www/html/index.html
+
+w_install_package "ufw"
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Réglage pare-feu pour les port http & https ${NC}"
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw --force enable
+
+
