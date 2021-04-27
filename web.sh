@@ -13,6 +13,10 @@ YELLOW='\033[0;33m'	# Yellow Color
 GREEN='\033[0;32m'	# Grean Color
 NC='\033[0m' 		# No Color
 #BOLD=$(tput bold)	# Ecrire en Gras
+HTML_INDEX_CONTENT='!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><html><head><title>Ma première page avec du style</title></head><body><!-- Menu de navigation du site -->
+<ul class="navbar"><li><a href="index.html">Home page</a></ul><!-- Contenu principal --><h1>Ma première page avec du style</h1><p>Bienvenue sur ma page avec du style!
+<p>Il lui manque des images, mais au moins, elle a du style. Et elle a desliens, même s''ils ne mènent nulle part...&hellip;<p>Je devrais étayer, mais je ne sais comment encore.
+<!-- Signer et dater la page, c''est une question de politesse! --><address>Fait le 22 avril 2021<br>par moi.</address></body></html>'
 
 ###### Fonctions
 
@@ -20,7 +24,7 @@ NC='\033[0m' 		# No Color
 w_assert_root() {
 	REAL_ID="$(id -u)"
 		if [ "$REAL_ID" -ne 0 ]; then 
-			1>&2 echo "${RED}$(date +'%Y-%m-%d %H:%M:%S') [ERROR  ] : This script must be run as root" 
+			1>&2 echo "${RED}$(date +'%Y-%m-%d %H:%M:%S') [ ERROR ] : This script must be run as root" 
 			exit 1
 	fi
 }
@@ -29,12 +33,15 @@ w_assert_root() {
 w_install_package() {
 	PACKAGE_NAME="$1"
 	if ! dpkg -l |grep --quiet "^ii.*$PACKAGE_NAME " ; then 
-		echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [INFO   ] : Installation du Package $PACKAGE_NAME"
+		echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Installation du Package $PACKAGE_NAME"
 		apt-get install -y "$PACKAGE_NAME"
 	else 
 		echo "${YELLOW}$(date +'%Y-%m-%d %H:%M:%S') [WARNING] : Le Package $PACKAGE_NAME est déja installer"
 	fi
 }
+
+
+
 
 
 # afficher le numero de ligne pour faciliter le debugage
@@ -47,5 +54,20 @@ echo_line_no () {
 w_assert_root
 w_install_package "apache2"
 
+# droit r/w du dossier WWW
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Configuration des droits du répertoir /var/www/html d'apach2"
+sudo usermod -a -G www-data $SUDO_USER
+chown -R www-data:www-data "/var/www/html"
+chown -R $SUDO_USER:$SUDO_USER "/var/www/html"
+
+#génération de la page index.html
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Génération de page index /var/www/html/index.html"
+echo $HTML_INDEX_CONTENT > /var/www/html/index.html
+
+w_install_package "ufw"
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Réglage pare-feu pour les port http & https ${NC}"
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw --force enable
 
 
