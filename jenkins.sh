@@ -47,7 +47,13 @@ ws_source_package() {
     fi
 }
 
-
+ws_permission_user(){
+    #sauvegarde du sudoers
+    cp /etc/sudoers /etc/sudoers.old
+    #ajout des droits du user dans le sudoers
+    cat /etc/sudoers |
+        echo "userjob      ALL(ALL)/bin/apt," >> sudo tee -a /etc/sudoers
+}
 
 # Main
 #Vérification au lancement du script (root)
@@ -72,5 +78,22 @@ apt-get -y update
 ws_install_package "jenkins"
 
 systemctl start jenkins
+
+#Création de l utilisateur userjob
+useradd -m -d /mnt/dd1 -p "userjob" "userjob"
+
+#ajout des droits apt
+ws_permission_user
+
+#installation pare-feu et ssh
+ws_install_package "ufw"
+ws_install_package "ssh"
+
+#mise en place regle pare-feu
+ufw allow ssh
+ufw allow 8080
+
+#activation du pare-feu
+ufw enable
 
 echo "success"
