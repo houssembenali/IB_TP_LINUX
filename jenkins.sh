@@ -48,7 +48,6 @@ ws_source_package() {
 }
 
 
-
 # Main
 #Vérification au lancement du script (root)
 ws_assert_root
@@ -72,5 +71,9 @@ apt-get -y update
 ws_install_package "jenkins"
 
 systemctl start jenkins
+
+#Création de l utilisateur userjob
+useradd -m -d /mnt/dd1 -p "userjob" "userjob"
+
 
 echo "success"
