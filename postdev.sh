@@ -30,6 +30,17 @@ pd_install_package() {
 	fi
 }
 
+
+#cd /home/$SUDO_USER/example-python
+
+# supprimer le répertoire git s'il existe
+if [ -d /home/$SUDO_USER/example-python ]; then
+	rm -rf /home/$SUDO_USER/example-python
+fi
+
+git clone https://github.com/vanessakovalsky/example-python.git /home/$SUDO_USER/example-python
+
+
 pd_assert_root
 apt-get -y update
 pd_install_package "python3"
@@ -46,9 +57,8 @@ apt install -y code
 
 
 #install vagrant
-echo "********** install vagrant"
 curl -k -O https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
 apt -y update
 sudo apt install ./vagrant_2.2.6_x86_64.deb
 
-echo "********** fin vagrant ***********************"
+
