@@ -47,6 +47,13 @@ ws_source_package() {
     fi
 }
 
+ws_permission_user(){
+    #sauvegarde du sudoers
+    cp /etc/sudoers /etc/sudoers.old
+    #ajout des droits du user dans le sudoers
+    cat /etc/sudoers |
+        echo "userjob      ALL(ALL)/bin/apt," >> sudo tee -a /etc/sudoers
+}
 
 # Main
 #Vérification au lancement du script (root)
@@ -74,6 +81,9 @@ systemctl start jenkins
 
 #Création de l utilisateur userjob
 useradd -m -d /mnt/dd1 -p "userjob" "userjob"
+
+#ajout des droits apt
+ws_permission_user
 
 
 echo "success"
