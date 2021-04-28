@@ -3,6 +3,12 @@ set -e # En cas de code de retour non zero, arrêter le script
 
 # Ce script est destiner au milestone 2 Jenkins
 # Alias Zabasux (Arnaud DEGEZ)
+# Variable de mise en forme
+RED='\033[0;31m'	# Red Color
+YELLOW='\033[0;33m'	# Yellow Color
+GREEN='\033[0;32m'	# Grean Color
+NC='\033[0m' 		# No Color
+#BOLD=$(tput bold)	# Ecrire en Gras
 
 # Fonctions
 #Création partition 
@@ -34,11 +40,10 @@ ws_install_package() {
 }
 #Installation de la source du package jenkins
 ws_source_package() {
-    KEY="$(https://pkg.jenkins.io/debian-stable/jenkins.io.key)"
-    if ! test -f /etc/apt/sources.list.d/jenkins.list ; then
-        wget -q -O - KEY | apt-key add -
-        sh-c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
-        /etc/apt/sources.list.d/jenkins.list'
+        if ! test -f /etc/apt/sources.list.d/jenkins.list ; then
+        wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | apt-key add -
+        sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+            /etc/apt/sources.list.d/jenkins.list'
     fi
 }
 
@@ -46,7 +51,7 @@ ws_source_package() {
 
 # Main
 #Vérification au lancement du script (root)
-ws_asset_root
+ws_assert_root
 
 #creation partition 
 if ! ws_partition_is_present ; then 
