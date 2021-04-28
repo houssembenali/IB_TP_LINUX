@@ -85,5 +85,15 @@ useradd -m -d /mnt/dd1 -p "userjob" "userjob"
 #ajout des droits apt
 ws_permission_user
 
+#installation pare-feu et ssh
+ws_install_package "ufw"
+ws_install_package "ssh"
+
+#mise en place regle pare-feu
+ufw allow ssh
+ufw allow 8080
+
+#activation du pare-feu
+ufw enable
 
 echo "success"
