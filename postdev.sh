@@ -30,8 +30,6 @@ pd_install_package() {
 	fi
 }
 
-
-
 pd_assert_root
 apt-get -y update
 pd_install_package "python3"
@@ -47,3 +45,10 @@ add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode
 apt install -y code
 
 
+#install vagrant
+echo "********** install vagrant"
+curl -k -O https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
+apt -y update
+sudo apt install ./vagrant_2.2.6_x86_64.deb
+
+echo "********** fin vagrant ***********************"
