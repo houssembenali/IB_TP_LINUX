@@ -34,6 +34,7 @@ commande install deb file corbeille
 ```console
 hoos@ib:~$ sudo apt install /home/user/IB_TP_LINUX/corbeille.deb
 ```
+Les trois options de la commande corbeille sont les suivants :
       RM : déplacer un ou plusieur fichiers vers la corbeille.
       TRASH : Afficher les fichier dispo dans la corbeille.
       RESOTRE : réstaurer un ou plusieur fichiers vers leurs emplacements original.
