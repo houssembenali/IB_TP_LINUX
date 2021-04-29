@@ -11,7 +11,7 @@ Les issues sont référencer dans les commit afin de savoir les commiter lier po
 
 Script de poste développeur (2 args)
 ```console
-hoos@ib:~$ postdev.ssh 127.0.0.1 passwordJenkins
+hoos@ib:~$ sudo postdev.ssh 127.0.0.1 passwordJenkins
 ```
 le script prends 2 argement en paramétre comme l'exemple ci-dessus :
 - le nom de domaine ou l'adresse ip du serveur Jenkins déployer
