@@ -4,8 +4,8 @@ set -e # STOP script en cas d'erreur (code retour != 0 )
 
 #Variable
 #TODO Please change this value
-IP_OR_DOMAIN_JENKINS="127.0.0.1"
-MOT_DE_PASSE_USERJOB="MotDePasse"
+IP_OR_DOMAIN_JENKINS=$1
+MOT_DE_PASSE_USERJOB=$2
 
 # Variable de mise en forme
 RED='\033[0;31m'	# Red Color
