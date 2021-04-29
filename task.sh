@@ -10,7 +10,7 @@ echo ""
 ws_creation_file_allow() {
     if ! test -f /etc/cron.allow ; then
     touch /etc/cron.allow
-    echo "00 */1 * * * /home/vagrant/save.sh"
+    echo "00 */1 * * * /home/vagrant/save.sh > /home/vagrant/save.log"
     fi
 }
 
