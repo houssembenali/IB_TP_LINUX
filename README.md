@@ -9,12 +9,14 @@ Les issues sont référencer dans les commit afin de savoir les commiter lier po
 
 # Description et documentation ci-dessous
 
-Les script ssh contient des log pour facilité le suivie d'état d'avancement des traitement.
+Les script ssh contient des log et timestamp pour facilité le suivie d'état d'avancement des traitement.
 Chaque script qui se termine avec succée affiche un message postif vert.
 Il existe 3 type de log :
-- les erreurs en ![#f03c15] ROUGE `#f03c15`
-- les warning en ![#f0cf15] JAUNE `#f0cf15`
-- les info en ![#c5f015] VERT `#c5f015`
+```diff
+- les erreurs en rouge
++ les info en vert
+! les warning en jaune
+```
 
 
 Script de poste développeur (2 args)
