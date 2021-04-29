@@ -1,0 +1,8 @@
+Package: corbeille
+Version: 1.4
+Section: base
+Priority: optional
+Architecture: all
+Depends: bash
+Maintainer: Mr Houssem BEN ALI <houssembenali90@gmail.com>
+Description: Le bin corbeille recense tous les fichiers que vous avez supprimés antérieurement. Tant que les fichiers sont dans la corbeille, ils sont récupérables avec l'option « RESTORE ». Les fichiers sont toujours présents sur l’ordinateur.
