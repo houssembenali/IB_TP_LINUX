@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "-----------------"
+echo "....Lancement...."
+echo ".......du........"
+echo ".....script......"
+
 set -e 
 
 # Ce script est destiner au milestone serveur NFS
