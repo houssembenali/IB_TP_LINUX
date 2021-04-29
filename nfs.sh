@@ -54,3 +54,4 @@ ws_config_nfs
 #installation cron
 ws_install_package "cron"
 
+echo "success"
