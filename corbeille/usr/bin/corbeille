@@ -1,11 +1,17 @@
 #!/bin/bash
 
+#Corbeille est un program stocker les fichiers non désirer pour les réstaurer en cas de besoin 
+
+
+#Variable
 PATH_TRASH="$HOME/trash"
 INDEX_FOLDER="$PATH_TRASH/index"
 
 
+#Début Algorithme
+
 #RM script
-if [ $1 = "RM" ]; then
+if [[ $1 == "RM" ]]; then
         shift;
 		for path in $@
 		do
@@ -18,29 +24,35 @@ if [ $1 = "RM" ]; then
 			#déplacer le fichier vers la corbeille
 			mv $path "$PATH_TRASH/$file"
 			echo "$path" >> "$INDEX_FOLDER/$file.info"
+			echo "Le fichier $file a été mis à la corbeille"
 		done
 		
 	
 #TRASH script
-elif [ $1 = "TRASH" ]; then
+elif [[ $1 == "TRASH" ]]; then
     shift;
+    	echo "La corbeille contienne les fichier suivant :"
 	echo $(ls -p $PATH_TRASH | grep -v / ) 
 
 	
 #RESTORE
-elif [ $1 = "RESTORE" ]; then
+elif [[ $1 == "RESTORE" ]]; then
     shift;
 	for file in $@
 	do
-	
+		#Vérifier si le fichier existe dans la corbeille
 		if [ ! -f "$PATH_TRASH/$file" ]; then
 			echo "ERREUR : $FILE n'exists."
 		fi
-	
+		#Réstauration du fichier et suppression de son index
 		mv $PATH_TRASH/$file $(cat $INDEX_FOLDER/$file.info)
 		rm "$INDEX_FOLDER/$file.info"
+		"Le fichie $file à été réstaurer."
 	done
 	
 else
 	echo "invalid Option"
 fi
+
+
+#Fin algorithme
