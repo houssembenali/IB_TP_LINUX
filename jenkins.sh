@@ -85,6 +85,9 @@ useradd -m -d /mnt/dd1 -p "userjob" "userjob"
 #ajout des droits apt
 ws_permission_user
 
+#afficher le mot de passe jenkins
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
 #installation pare-feu et ssh
 ws_install_package "ufw"
 ws_install_package "ssh"
