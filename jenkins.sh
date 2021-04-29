@@ -77,14 +77,18 @@ ws_source_package
 apt-get -y update
 ws_install_package "jenkins"
 
+
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Démarrage du service Jenkins ... ${NC}"
 systemctl start jenkins
 
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Création de l'utilisateur USERJOB ${NC}"
 #Création de l utilisateur userjob
 useradd -m -d /mnt/dd1 -p "userjob" "userjob"
 
 #ajout des droits apt
 ws_permission_user
 
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Le mot de passe ADMIN de Jenkins est le suivant : ${NC}"
 #afficher le mot de passe jenkins
 cat /var/lib/jenkins/secrets/initialAdminPassword
 
@@ -92,11 +96,15 @@ cat /var/lib/jenkins/secrets/initialAdminPassword
 ws_install_package "ufw"
 ws_install_package "ssh"
 
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Configuration du pare-feu UFW (port ssh & 8080) ${NC}"
 #mise en place regle pare-feu
 ufw allow ssh
 ufw allow 8080
 
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Activation du pare-feu UFW ${NC}"
 #activation du pare-feu
 ufw enable
 
-echo "success"
+echo "${GREEN} ************************************************************************* ${NC}"
+echo "${GREEN}$(date +'%Y-%m-%d %H:%M:%S') [ INFO  ] : Installation terminer avec succée ${NC}"
+echo "${GREEN} ************************************************************************* ${NC}"
