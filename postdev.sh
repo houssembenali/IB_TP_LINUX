@@ -2,6 +2,11 @@
 set -u # STOP script si variable non définie.
 set -e # STOP script en cas d'erreur (code retour != 0 )
 
+#Variable
+#TODO Please change this value
+IP_OR_DOMAIN_JENKINS="127.0.0.1"
+MOT_DE_PASSE_USERJOB="MotDePasse"
+
 # Variable de mise en forme
 RED='\033[0;31m'	# Red Color
 YELLOW='\033[0;33m'	# Yellow Color
@@ -49,8 +54,8 @@ add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode
 #install Visual Studio Code
 apt install -y code
 
-
-
+#install sshpass requis pour le transfert de la clée public RSA vers serveur Jenkins
+pd_install_package sshpass
 
 
 #Tester répertoir des clées ssh existe
@@ -67,7 +72,8 @@ fi
 ssh-keygen -t rsa -N "passphrase" -C "test key" -f /home/$SUDO_USER/.ssh/ic-jenkins-key
 yes | cp /home/$SUDO_USER/.ssh/ic-jenkins-key.pub /home/userjob/.ssh/ic-jenkins-key.pub
 
-
+#transfert clée public du client vers le serveur IC Jenkins via protocol SSH
+sshpass -p $MOT_DE_PASSE_USERJOB ssh-copy-id -i ~/.ssh/ic-jenkins-key.pub -o StrictHostKeyChecking=no userjob@$IP_OR_DOMAIN_JENKINS
 
 
 #install vagrant
