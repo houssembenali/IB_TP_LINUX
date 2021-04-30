@@ -2,7 +2,7 @@
 set -e # En cas de code de retour non zero, arrêter le script
 
 # Ce script est destiner au milestone 2 Jenkins
-# Alias Zabasux (Arnaud DEGEZ)
+# Alias server_ic
 # Variable de mise en forme
 RED='\033[0;31m'	# Red Color
 YELLOW='\033[0;33m'	# Yellow Color
@@ -11,16 +11,27 @@ NC='\033[0m' 		# No Color
 #BOLD=$(tput bold)	# Ecrire en Gras
 
 # Fonctions
-#Création partition 
+#vérifier si la partition est presente 
 ws_partition_is_present() {
     test -d /mnt/dd1
 }
+#Création partition
 ws_create_partition() {
     mkdir /mnt/dd1
     mkfs.ext4 /dev/sdb
 }
+#monter la partition
 ws_mount_partition() {
     mount -t ext4 /dev/sdb /mnt/dd1
+}
+
+#changement nom de machine
+ws_change_hostname(){
+    if ! cat /etc/hostname | grep -q "server_ic" ; then
+       sed \
+            -e "s/server/server_ic"\
+            > "/etc/hostname"
+    fi
 }
 
 # Vérifier que le script est bien lancé en tant que root
