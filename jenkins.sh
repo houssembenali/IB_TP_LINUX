@@ -29,7 +29,7 @@ ws_mount_partition() {
 ws_change_hostname(){
     if ! cat /etc/hostname | grep -q "server_ic" ; then
        sed \
-            -e "s/server/server_ic"\
+            -e "s|server|server_ic|"\
             > "/etc/hostname"
     fi
 }
