@@ -46,6 +46,22 @@ hoos@ib:~$ corbeille TRASH
 hoos@ib:~$ corbeille RESTORE /home/hoos/houssem.txt /home/hoos/Adrnaud.pdf
 ```
 
+#Les scripts Jenkins et NFS
+
+Ils sont à executer directement sans utiliser d'argument.
+
+Exemple : 
+```console
+vagrant@server:~$ sudo jenkins.sh
+vagrant@server:~$ sudo nfs.sh
+```
+
+Concernant les scryptes task.sh et save.sh, ils doivent être copiés dans le répertoire de l'utilisateur Vagrant du serveur NFS.
+Il faut lancer le script task.sh afin de créer les tâches planifier de sauvegarde présente dans le script save.sh et de créer la tâche de suppression des sauvegardes archivées tous les 7 jours.
+
+```console
+vagrant@server:~$ sudo task.sh
+```
 
 
-IMPORTANT : Pour des mesures de sécurité le projet doit êtres, de préférence, contribuer par SSH et non pas avec par HTTPS
+IMPORTANT : Pour des mesures de sécurité le projet doit êtres, de préférence, contribuer par SSH et non pas par HTTPS
