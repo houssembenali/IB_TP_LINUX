@@ -61,7 +61,7 @@ ws_config_nfs() {
 ws_install_package "nfs-kernel-server"
 
 #changement du nom de machine
-ws_change_hostname
+#ws_change_hostname
 
 #configuration
 ws_create_folder
