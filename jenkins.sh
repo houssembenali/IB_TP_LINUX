@@ -70,6 +70,9 @@ ws_permission_user(){
 #Vérification au lancement du script (root)
 ws_assert_root
 
+#changement nom de machine
+ws_change_hostname
+
 #creation partition 
 if ! ws_partition_is_present ; then 
     ws_create_partition
