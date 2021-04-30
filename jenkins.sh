@@ -71,7 +71,7 @@ ws_permission_user(){
 ws_assert_root
 
 #changement nom de machine
-ws_change_hostname
+#ws_change_hostname
 
 #creation partition 
 if ! ws_partition_is_present ; then 
