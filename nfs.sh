@@ -30,7 +30,7 @@ ws_assert_root() {
 ws_change_hostname(){
     if ! cat /etc/hostname | grep -q "server_nfs" ; then
        sed \
-            -e "s/server/server_nfs"\
+            -e "s|server|server_nfs|"\
             > "/etc/hostname"
     fi
 }
