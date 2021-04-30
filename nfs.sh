@@ -26,7 +26,15 @@ ws_assert_root() {
 		exit 1
 	fi
 }
-
+#changer le nom de machine
+ws_change_hostname(){
+    if ! cat /etc/hostname | grep -q "server_nfs" ; then
+       sed \
+            -e "s/server/server_nfs"\
+            > "/etc/hostname"
+    fi
+}
+#creation du partage
 ws_create_folder() {
     if ! test -d "/home/vagrant/save/" ; then
         mkdir /home/vagrant/save/
@@ -51,6 +59,9 @@ ws_config_nfs() {
 # Main
 #installation NFS
 ws_install_package "nfs-kernel-server"
+
+#changement du nom de machine
+ws_change_hostname
 
 #configuration
 ws_create_folder
